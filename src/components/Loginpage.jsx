@@ -1,13 +1,19 @@
 import React, { useState } from "react";
+import '../components/Loginpagestyles.css';
+import '../components/NavBar'
 import { auth } from "../firebase";
-import { GoogleAuthProvider, sendSignInLinkToEmail, signInWithRedirect } from "firebase/auth";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
+import { sendSignInLinkToEmail, signInWithRedirect } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Loginpage = () => {
 
 
 const [email, setEmail] = useState("")
 const [password, setPassword] = useState("")
+
+const signOut = () => {
+     auth.signOut();
+}
 
 
 const onLogin = (e) => {
@@ -30,19 +36,39 @@ const onLogin = (e) => {
 
 <div>
    <home className ="login">
-    <h2>Welcome to the ultimate chat app</h2>
+   
 
-    <form>
-        <div>
-        <input type="email" placeholder="enter your email" onChange={(e)=>setEmail(e.target.value)} required />
-        </div>
-        <div>
-        <input type="password" placeholder="enter your password" onChange={(e)=>setPassword(e.target.value)} required />
-        </div>
-        <button type="submit" onClick={onLogin}>Login</button>
+    <form className="form">
+        
+
+        <div className="logincontainer"> 
+        <p>Mwendwa Chat App</p>
+        <p> Create Account with email & password to login</p>
+            
+              { !createUserWithEmailAndPassword ? (<button onClick={signOut} className="sign-out" type ="button">Sign Out
+               </button>) : (
+   
+        <div className="input-container">
+            
+            <input type="email" placeholder="enter your email" onChange={(e)=>setEmail(e.target.value)} required />
+        
+            <input type="password" placeholder="enter your password" onChange={(e)=>setPassword(e.target.value)} required />
+        
+            <button type="submit" onClick={onLogin}>Login</button>
+        </div>)
+       }
+       
+       
+        </div> 
+</form> 
+       
+        
+        
+
+        
 
 
-    </form>
+    
     
     
    </home>
